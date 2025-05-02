@@ -1,0 +1,16 @@
+package com.example.comtroller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.example.model.MemberVOList;
+
+@Controller
+public class MultiInsertController {
+	
+	//전송버튼 눌렸을때 
+	@RequestMapping("multiInsert.do")
+	public void multiInsert(MemberVOList mList) {
+		
+	}
+}

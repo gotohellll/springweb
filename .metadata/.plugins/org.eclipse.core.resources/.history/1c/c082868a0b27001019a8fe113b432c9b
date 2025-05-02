@@ -1,0 +1,14 @@
+package com.example.comtroller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+public class RequestMappingController {
+	
+	@RequestMapping(value={"re/a.do", "re/b.do"}) 
+	public void test() {
+		System.out.println("re/a.do 요청과 re/b.do 요청을 받아 동일 작업");
+		
+	}
+}

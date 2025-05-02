@@ -1,0 +1,20 @@
+package com.example.comtroller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.example.model.MemberVO;
+import com.example.model.MemberVOList;
+
+@Controller
+public class MultiInsertController {
+	
+	//전송버튼 눌렸을때 
+	@RequestMapping("multiInsert.do")
+	public void multiInsert(MemberVOList mList) {
+		System.out.println("---[ 컨트롤러 ]---");
+		for( MemberVO vo : mList.getList()) {
+			System.out.println(vo.toString());
+		}
+	}
+}

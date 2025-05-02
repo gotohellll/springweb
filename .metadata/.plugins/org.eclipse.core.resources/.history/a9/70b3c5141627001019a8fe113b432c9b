@@ -1,0 +1,30 @@
+package com.example.comtroller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("re")
+public class RequestMappingController {
+	
+	/***************
+	  [1] 스프링 컨트롤러에서 리턴값이 ModelAndView인 경우
+	 		- ModelAndView에 view 페이지 지정
+	 		- ModelAndView에 뷰페이지 보낼 데이터 추가
+	 		
+	 */
+	
+	
+	/***************
+	  [2] 스프링 컨트롤러에서 리턴값이 String인 경우
+	   	=> 문자열 전송이 아님
+	   
+	   	=> ****** view 페이지 지정이다. 
+	 */
+	@RequestMapping(value={"re/a.do", "re/b.do"}) 
+	public String test() {
+		System.out.println("re/a.do 요청과 re/b.do 요청을 받아 동일 작업");
+		
+		return "hello"; //뷰페이지명 지정하면 뷰페이지 리턴
+	}
+}
