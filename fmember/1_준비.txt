@@ -1,0 +1,33 @@
+
+
+1. 테이블 생성
+
+CREATE TABLE memberTest (
+	userid VARCHAR(50) PRIMARY KEY ,
+	userpass VARCHAR(100),
+	username VARCHAR(100)
+)
+
+
+2. 설정파일 확인
+	(1) pom.xml : 필요한 라이브러리 지정
+	(2) web.xml : DispatcherServlet (서블릿파일) 지정 및 한글 인코딩
+	(3) servlet-context.xml : static resources 폴더와 뷰리졸버 지정 
+		- <!-- 컴포넌트를 인식하는 패키지 지정 -->
+			<context:component-scan base-package="com.javaclass" />
+	(4) root-context.xml : DB연결 / mybatis 설정
+	
+
+3. 필요한 파일 만들기
+	(1) com.javaclass.domain.MemberVO
+	(2) mappers/MemberMapper.xml
+	
+	(3) interface : com.javaclass.repository.MemberDAO
+	(4) com.javaclass.repository.MemberDAOImpl
+	
+	(5) interface : com.javaclass.service.MemberService
+	(6) com.javaclass.service.MemberServiceImpl	
+
+	(7) com.javaclass.controller.MemberController
+	
+4. 뷰페이지에 필요한 부분 추가

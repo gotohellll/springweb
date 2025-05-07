@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.javassem.MemberMapper">
+
+	<!-- 회원정보 입력 -->
+	<insert id='insertMember' parameterType="MemberVO">
+		INSERT INTO membertest(userid, userpass, username)
+		VALUES(#{userid}, #{userpass}, #{username})
+	</insert>
+
+	<!-- 로그인 확인 -->
+	<select id='loginCheck' resultType="MemberVO">
+		SELECT * FROM membertest
+		<where>
+			userid=#{userid} AND userpass=#{userpass}
+		</where>
+	</select>
+</mapper>

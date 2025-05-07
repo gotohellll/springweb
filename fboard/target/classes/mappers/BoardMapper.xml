@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="BoardDAO">
+
+	
+	<!-- oracle 인 경우  -->	
+	<insert id="insertBoard" parameterType="BoardVO">
+		INSERT INTO BOARD(SEQ, TITLE, WRITER, CONTENT, REGDATE, CNT)
+		VALUES(board_seq.nextval,
+			#{title}, #{writer}, #{content}, 
+			sysdate, 0)
+	</insert> 
+	
+	<!-- <insert id="insertBoard" parameterType="board">
+		INSERT INTO BOARD( TITLE, WRITER, CONTENT, REGDATE, CNT)
+		VALUES(	#{title}, #{writer}, #{content}, now(), 0)
+	</insert> -->
+	<!-- root-context.xml의 별칭 BoardVO -->
+	<update id="updateBoard" parameterType="BoardVO">
+		UPDATE BOARD SET
+		TITLE = #{title},
+		CONTENT = #{content}
+		WHERE SEQ = #{seq}
+	</update>
+	
+	<delete id="deleteBoard" parameterType="BoardVO">
+		DELETE FROM BOARD
+		WHERE SEQ = #{seq}
+	</delete>
+	
+	<select id="getBoard" parameterType="BoardVO" resultType="BoardVO">
+		SELECT *
+		FROM BOARD
+		WHERE SEQ = #{seq}
+	</select>
+	
+	<select id="getBoardList" resultType="BoardVO"  >
+			
+			SELECT *
+			FROM BOARD
+			ORDER BY SEQ DESC
+		
+	</select> 
+	
+	
+</mapper>

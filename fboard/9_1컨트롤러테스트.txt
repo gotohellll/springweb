@@ -1,0 +1,175 @@
+
+
+##  Controller 클래스 테스트
+
+	- 구현한 컨트롤러가 지정한 요청을 제대로 처리하는지 확인
+		( 예. 제대로 리다이렉트하는지, json 처리는 하는지 )
+
+	- 컨트롤러의 실행결과를 확인하기 위해서는 톰캣을 실행하고 웹 브라우저를 이용해서 응답 내용을 확인해야 한다.
+	  즉, 컨트롤서 클래스는 WAS(Web Application Server)상에서 작동하는데,
+	  이를 별도의 서버 동작 없이 모조품(Mock)으로 테스트 한다
+	
+	-JUnit은 MockMvc를 이용
+	
+	
+		※ 테스트는 어떠한 경우에서라도 서로 의존해서는 안되고, 서로 절대 영향을 줘서도 안됩니다.
+
+		JUnit : 이미 자바에서는 테스팅을 하기 위해 기존 코드와 유사한 코드를 만드는 불편함을 없애기 위한 여러 테스팅 도구들이 존재하고,
+				그 중 JUnit은 표준이라 할 정도로 폭넓게 사용되는 자바 테스팅 프레임워크입니다.
+			
+			- 단위테스트 : 일반적으로 구축전이나 도중에 구체적인 부분만 확인하기 위해
+			- 통합테스트 : 전반적인 부분을 확인하기 위해
+
+		* JUnit 테스트 메서드 규칙(@Test)
+		1. 테스트 대상 메서드가 public 으로 선언되어야 합니다.
+		2. 메서드에 @Test 라는 어노테이션이 필요합니다.
+		3. 반환형은 없고, 매개변수도 없어야 합니다.
+
+0. pom.xml
+
+<!-- Test -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency> 
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+		
+		
+	***** 적어도 서블릿 버전을 3.1.0 이상으로 해줘야 에러가 발생하지 않느다
+	
+		<!-- Servlet -->
+		<!-- 
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency> -->
+		
+		<dependency>	<!-- WebAppConfiguration을 사용하기 위함 -->
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId> <!--여기 이름이 변경됨 -->
+            <version>4.0.1</version>
+        </dependency>
+
+  
+1. com.javassem.basic.TestController.java
+        
+		@Controller
+		public class TestController {
+			//------------------------------------------
+			@RequestMapping("/test.do")
+			public void test(String number2){
+				// 인자의 변수명이 테스트에서 지정하는 파라메터명과 동일해야 한다
+				System.out.println("/test 요청 :" + number2);
+			}
+			
+			@RequestMapping("/test2.do")
+			public String test2(String name, Model m){
+				// 인자의 변수명이 테스트에서 지정하는 파라메터명과 동일해야 한다
+				
+				m.addAttribute("greeting", name+"님 반갑습니다");
+				m.addAttribute("message", "오늘도 행복하세요");
+				
+				return "happyPage"; // 뷰페이지 지정
+			}
+			
+		}
+		
+		
+		
+2. src/test/java 아래 있는 
+	ControllerTest.java 에서 > 오른 마우스 > Run As > JUnit Test
+
+package com.javassem.basic;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
+
+
+		/* [ 스프링 테스트 지원 기본 확인 ]
+		 * 
+		 * 1. 테스트실행기 지정 : SpringJUnit4ClassRunner 클래스
+		 * 2. 설정정보 지정 : @ContextConfiguration(설정파일)
+		 * 3. 사용한 빈 객체 자동 주입 (@Autowired)
+		 * 
+		 * [추가] WAS(Web Application Server)에서 구동되는 것을 확인하기 위해
+		 * 
+		 * 4. @WebAppConfiguration
+		 */
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@WebAppConfiguration	// WebApplicationContext를 생성할 수 있도록 하는 어노테이션
+@ContextConfiguration({"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml",
+		"file:src/main/webapp/WEB-INF/spring/root-context.xml"})
+		
+	public class BControllerTest {
+
+		//Logger log = LoggerFactory.getLogger(MybatisTest.class);
+
+		
+		private WebApplicationContext context; // MockMvc 객체 생성을 위한 context
+		
+		private MockMvc mockMvc;
+		
+		@Autowired
+		TestController testController;
+		
+		@Before
+		public void initMockMvc() {
+			mockMvc = MockMvcBuilders.standaloneSetup(testController).build();
+		}
+		
+		@Test
+		public void testBoard() throws Exception{
+			
+			mockMvc.perform(get("/test.do")   // controller의 /test.do URI를 get방식으로 호출
+					.param("number1", "1")  // 파라미터 number1에 1입력 (***** 컨트롤러 test.do 요청 파일에 인자 변수명과 동일해야 한다.)
+					.param("number2", "2")  // 파라미터 number2에 2입력
+					) 
+					.andDo(print())                        // 결과를 print. MockMvcBuilders의 alwaysDo(print())로 대체 가능
+					.andExpect(status().isOk()); 
+		}
+		
+		@Test
+		public void testBoard2() throws Exception{
+			
+			// controller의 /test2.do URI를 get방식으로 호출
+			//(***** 파라미터명은 컨트롤러 test.do 요청 파일에 인자 변수명과 동일해야 한다.)
+			
+			// perform() 함수는 파라미터로 전달한 RequestBuilder를 이용하여 HttpServletRequest를 생성하고
+			//				DispatcherServlet 서블릿클래스를 실행한다.
+			//				이 과정에서 테스트하는 스프링 MVC를 테스트 할 수 있는 것이다.
+			
+			mockMvc.perform(get("/test2.do").param("name", "홍길동")) 		
+					.andDo(print())             // 결과를 print. MockMvcBuilders의 alwaysDo(print())로 대체 가능
+					.andExpect(status().isOk()) 
+					// 결과상태 OK - 아래는 하나씩 추가하며 확인
+					//.andExpect(model().attributeExists("greet")) - 테스트실패
+					.andExpect(model().attributeExists("greeting")) 
+					.andExpect(model().attribute("greeting", "홍길동님 반갑습니다"))
+					//.andExpect(view().name("happypage")); -테스트실패
+					.andExpect(view().name("happyPage"));
+		}
+	}
+
+			
+			
