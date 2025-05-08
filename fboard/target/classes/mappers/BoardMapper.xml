@@ -35,13 +35,24 @@
 		WHERE SEQ = #{seq}
 	</select>
 	
-	<select id="getBoardList" resultType="BoardVO"  >
+	<select id="getBoardList" parameterType="hashmap" resultType="BoardVO"  >
 			
 			SELECT *
 			FROM BOARD
+			<where>
+				<if test="searchCondition != null">
+					${searchCondition} LIKE '%${searchKeyword}%'
+				</if>
+			</where>
 			ORDER BY SEQ DESC
 		
 	</select> 
+	<!-- 
+		PreparedStatement 	=> #{변수} 
+		Statement			=> ${변수}
+		
+		#을쓰면 작은따옴표가 달라붙음 / $는 안붙음
 	
+	 -->
 	
 </mapper>
