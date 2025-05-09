@@ -1,0 +1,19 @@
+CREATE TABLE cate
+( cate_no   number  PRIMARY KEY,	
+  cate_name varchar(20) );
+
+INSERT INTO cate VALUES(1, '분식');
+INSERT INTO cate VALUES(2, '한식');
+
+CREATE TABLE food
+(
+    food_no     number  PRIMARY KEY,	
+    cate_no	    number,
+    food_name   varchar(30),
+    CONSTRAINT  fk_food_cateno FOREIGN KEY ( cate_no ) REFERENCES cate ( cate_no )
+);
+INSERT INTO food VALUES(1,	1,	'떡볶이');
+INSERT INTO food VALUES(2,	2,	'한정식');
+INSERT INTO food VALUES(3,	1,	'김밥');
+INSERT INTO food VALUES(4,	1,	'순대');
+INSERT INTO food VALUES(5,	2,	'갈비');

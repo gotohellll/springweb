@@ -5,14 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.javassem.dao.BoardDAOImpl;
+import com.javassem.dao.BoardDAO;
 import com.javassem.domain.BoardVO;
 
 
 @Service("boardService")
 public class BoardServiceImpl implements BoardService {
 	@Autowired
-	private BoardDAOImpl boardDAO;
+	private BoardDAO boardDAO;
 
 	public void insertBoard(BoardVO vo) {
 

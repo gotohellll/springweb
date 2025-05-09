@@ -1,0 +1,27 @@
+0. DAOImple 클래스를 제거
+
+1. DAO 인터페이스
+	
+	- @Mapper 기재 -> mybatis것이라 4번 필요 
+	
+2. Mapper.xml 파일 
+
+	- namespace = "DAO경로"
+	- ex) namespace = "com.javassem.dao.BoardDAO"
+	
+3. Mapper 파일 위치 변경
+
+	- 기본 패키지 아래로 이동 ( com.javassem.mappers로 이동 )
+	- root-context.xml 에서 매퍼 위치 변경 
+		 <property name="mapperLocations" value="classpath:com/javassem/mappers/**/*Mapper.xml"></property>
+
+4. 스프링마이바티즈의 기본 패키지 지정
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+    <property name="basePackage" value="com.javassem.dao" />
+  </bean>
+  
+  or
+  
+  <mybatis-spring:scan base-package="com.javassem/"/>
+  
+   

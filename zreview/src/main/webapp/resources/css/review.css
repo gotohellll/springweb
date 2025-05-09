@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+td {
+	width : 150px;
+	padding : 20px;
+}
+
+tr:nth-of-type(2) > td {
+	height : 200px;
+}
+
+li {
+	 list-style-type: none;
+}

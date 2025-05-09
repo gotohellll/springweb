@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.javaclass.zreview.model.ReviewRepository">
+
+	<select id='getCateList' resultType='com.javaclass.zreview.model.vo.CateVO'>
+		SELECT * FROM cate
+	</select>
+	
+	<select id='getFoodList' parameterType='int' resultType='com.javaclass.zreview.model.vo.FoodVO'>
+		SELECT * FROM food
+		WHERE  cate_no=#{cate_no}
+	</select>
+</mapper>
