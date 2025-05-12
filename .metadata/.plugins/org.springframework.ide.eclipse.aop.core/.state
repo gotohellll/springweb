@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aop-reference-model>
 <aop-project name="espringweb"/>
+<aop-project name="zreview"/>
 <aop-project name="fmember"/>
 <aop-project name="fboard"/>
 <aop-project name="hfileupload"/>
-<aop-project name="zReviewHW"/>
+<aop-project name="zapi"/>
 <aop-project name="ireply"/>
 </aop-reference-model>
