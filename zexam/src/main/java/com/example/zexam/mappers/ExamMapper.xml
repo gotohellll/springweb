@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.zexam.repo.ExamRepo">
+
+
+		
+<select id="getBookList" parameterType="com.example.zexam.model.BookVO" resultType="com.example.zexam.model.BookVO" >
+			
+		SELECT *
+		FROM book_tab
+		ORDER BY book_no DESC
+		
+</select> 
+<select id="getQnAList" parameterType="com.example.zexam.model.QnAVO" resultType="com.example.zexam.model.QnAVO" >
+			
+		SELECT *
+		FROM qna_tab
+		ORDER BY qna_no DESC
+		
+</select> 
+<select id="getNoticeList" parameterType="com.example.zexam.model.NoticeVO" resultType="com.example.zexam.model.NoticeVO" >
+			
+		SELECT *
+		FROM notice_tab
+		ORDER BY notice_no DESC
+		
+</select> 
+<select id="getQuestionList" parameterType="com.example.zexam.model.QuestionVO" resultType="com.example.zexam.model.QuestionVO" >
+			
+		SELECT *
+		FROM question_tab
+		ORDER BY question_no DESC
+		
+</select> 
+
+<select id="loginCheck" parameterType="com.example.zexam.model.EmpVO" resultType="com.example.zexam.model.EmpVO">
+		
+		<![CDATA[
+		
+		SELECT *
+		FROM emp		
+		WHERE ename= #{ename} AND empno = #{empno}
+		
+		]]>
+		
+		
+</select>
+
+
+
+	
+</mapper>
