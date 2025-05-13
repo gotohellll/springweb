@@ -12,13 +12,13 @@ import com.example.zexam.model.QuestionVO;
 
 @Mapper
 public interface ExamRepo {
-	public ArrayList<NoticeVO> getNoticeList(NoticeVO vo);
+	public ArrayList<NoticeVO> getNoticeList();
 	
-	public ArrayList<QnAVO> getQnAList(QnAVO vo);
+	public ArrayList<QnAVO> getQnAList();
 	
-	public ArrayList<QuestionVO> getQuestionList(QuestionVO vo);
+	public ArrayList<QuestionVO> getQuestionList();
 	
-	public ArrayList<BookVO> getBookList(BookVO vo);
+	public ArrayList<BookVO> getBookList();
 	
 	public EmpVO loginCheck(EmpVO vo);
 	

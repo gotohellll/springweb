@@ -24,8 +24,9 @@ public class ExamController {
 	private ExamService examService = null;
 	
 	@RequestMapping("index")
-	public void index(NoticeVO vo, QnAVO vo2, QuestionVO vo3, BookVO vo4,  Model m) {
+	public void index(Model m) {
 		
+		//NoticeVO vo, QnAVO vo2, QuestionVO vo3, BookVO vo4,  
 		// 추후에는 디비 연결 지금은 공지사함 가짜 데이타
 //		ArrayList<NoticeVO> noticeList = new ArrayList<NoticeVO>();
 //		for(int i=0; i<5; i++) {
@@ -36,16 +37,16 @@ public class ExamController {
 //		m.addAttribute("noticeList",noticeList);
 		
 		//공지사항
-		m.addAttribute("noticeList", examService.getNoticeList(vo));
+		m.addAttribute("noticeList", examService.getNoticeList());
 		
 		//QnA
-		m.addAttribute("qnaList", examService.getQnAList(vo2));
+		m.addAttribute("qnaList", examService.getQnAList());
 		
 		//저자
-		m.addAttribute("questList", examService.getQuestionList(vo3));
+		m.addAttribute("questList", examService.getQuestionList());
 		
 		//책이미지
-		m.addAttribute("bookList", examService.getBookList(vo4));
+		m.addAttribute("bookList", examService.getBookList());
 		
 		
 	}

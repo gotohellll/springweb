@@ -10,13 +10,13 @@ import com.example.zexam.model.QuestionVO;
 
 public interface ExamService {
 	//공지사항
-	ArrayList<NoticeVO> getNoticeList(NoticeVO vo);
+	ArrayList<NoticeVO> getNoticeList();
 	//QnA
-	ArrayList<QnAVO> getQnAList(QnAVO vo);
+	ArrayList<QnAVO> getQnAList();
 	//저자문의
-	ArrayList<QuestionVO> getQuestionList(QuestionVO vo);
+	ArrayList<QuestionVO> getQuestionList();
 	//책이미지
-	ArrayList<BookVO> getBookList(BookVO vo);
+	ArrayList<BookVO> getBookList();
 	
 	EmpVO loginCheck(EmpVO vo);
 }

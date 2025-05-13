@@ -18,27 +18,27 @@ public class ExamServiceImpl implements ExamService{
 	private ExamRepo examRepo;
 
 	@Override
-	public ArrayList<NoticeVO> getNoticeList(NoticeVO vo) {
+	public ArrayList<NoticeVO> getNoticeList() {
 		
-		return examRepo.getNoticeList(vo);
+		return examRepo.getNoticeList();
 	}
 
 	@Override
-	public ArrayList<QnAVO> getQnAList(QnAVO vo) {
+	public ArrayList<QnAVO> getQnAList() {
 		
-		return examRepo.getQnAList(vo);
+		return examRepo.getQnAList();
 	}
 
 	@Override
-	public ArrayList<QuestionVO> getQuestionList(QuestionVO vo) {
+	public ArrayList<QuestionVO> getQuestionList() {
 		
-		return examRepo.getQuestionList(vo);
+		return examRepo.getQuestionList();
 	}
 
 	@Override
-	public ArrayList<BookVO> getBookList(BookVO vo) {
+	public ArrayList<BookVO> getBookList() {
 		
-		return examRepo.getBookList(vo);
+		return examRepo.getBookList();
 	}
 	
 	public EmpVO loginCheck(EmpVO vo) {
